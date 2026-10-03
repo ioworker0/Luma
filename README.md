@@ -4,6 +4,8 @@ Abstract ideas. Visible form.
 
 A growing collection of HTML visualizations, starting with linear algebra and expanding into geometry, spaces, transformations, and other ideas worth exploring.
 
+The homepage and visualizations use a light theme, independent of the system theme. All project content is in English.
+
 - Website: <https://ioworker0.github.io/Luma/>
 - Repository: <https://github.com/ioworker0/Luma>
 

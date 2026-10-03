@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
 <script id="lumi-getcssvar">
@@ -918,6 +918,7 @@ button.active, button.is-active, button.selected, button.is-selected, button[ari
   <meta name="description" content="Drag two vectors to explore signed projection, angles, and the dot product on a 2D plane.">
   <style>
     /* Widget structural layout */
+    :root { color-scheme: light; --body-bg: #fdfcfc; }
     html, body { overflow-y: auto; }
     body { font-family: var(--ff-sans, sans-serif); }
 
@@ -1043,47 +1044,11 @@ button.active, button.is-active, button.selected, button.is-selected, button[ari
       width: 16px;
     }
   </style>
-<script id="lumi-os-theme-init">
+<script id="luma-light-theme-init">
 (function() {
-  function syncBody() {
-    var dt = document.documentElement.getAttribute('data-theme');
-    if (document.body && (dt === 'dark' || dt === 'light')) {
-      document.body.classList.toggle('dark-mode', dt === 'dark');
-    }
-  }
-  function syncTheme(theme) {
-    if (theme !== 'dark' && theme !== 'light') return;
-    document.documentElement.setAttribute('data-theme', theme);
-    syncBody();
-  }
-  if (typeof MutationObserver === 'function') {
-    new MutationObserver(syncBody).observe(document.documentElement, {
-      attributes: true, attributeFilter: ['data-theme']
-    });
-  }
-  if (typeof document.addEventListener === 'function') {
-    document.addEventListener('DOMContentLoaded', syncBody);
-  }
-  try {
-    var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
-    if (mq) {
-      var cur = document.documentElement.getAttribute('data-theme');
-      if (!cur) {
-        syncTheme(mq.matches ? 'dark' : 'light');
-      } else {
-        syncTheme(cur);
-      }
-      if (mq.addEventListener) {
-        mq.addEventListener('change', function(e) {
-          syncTheme(e.matches ? 'dark' : 'light');
-        });
-      }
-    }
-  } catch (e) {}
-  window.addEventListener('message', function(e) {
-    if (e.data && (e.data.type === 'set-theme' || e.data.type === 'APPLY_THEME') && e.data.theme) {
-      syncTheme(e.data.theme);
-    }
+  document.documentElement.setAttribute('data-theme', 'light');
+  document.addEventListener('DOMContentLoaded', function() {
+    document.body.classList.remove('dark-mode');
   });
 })();
 </script>
@@ -1541,22 +1506,7 @@ button.active, button.is-active, button.selected, button.is-selected, button[ari
     window.addEventListener('resize', updateViz);
     new ResizeObserver(updateViz).observe(viewport);
 
-    // Theme & Resize Integration
-    const applyTheme = t => {
-      document.documentElement.setAttribute('data-theme', t);
-      if (typeof updateViz === 'function') updateViz();
-    };
-
-    if (!document.documentElement.hasAttribute('data-theme') && window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
-      applyTheme('dark');
-    }
-
-    window.addEventListener('message', e => {
-      if (e.data?.type === 'set-theme' || e.data?.type === 'APPLY_THEME') {
-        applyTheme(e.data.theme);
-      }
-    });
-
+    // Notify embedding parents when the content height changes.
     (function autoResize() {
       function notifyHeight() {
         const c = document.querySelector('.widget-container') || document.body;

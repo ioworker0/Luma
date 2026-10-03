@@ -13,6 +13,7 @@ The user will regularly drop HTML files into this repository. Agents help create
 - Maintain a clear, simple homepage that makes the collection easy to browse.
 - Preserve the workflow: add HTML, push to `main`, and automatically update the homepage and GitHub Pages.
 - Keep all project content in English: interface text, documentation, comments, and agent instructions.
+- Use a light visual style throughout the project, including the homepage and individual visualizations. Keep pages light regardless of the operating system's dark mode; normalize imported pages accordingly.
 - The repository and GitHub Pages site are public, as requested by the user. Do not change visibility without authorization.
 
 ## File organization
