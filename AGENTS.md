@@ -27,6 +27,19 @@ The user will regularly drop HTML files into this repository. Agents help create
 - `_site/` is generated publishing output. Never commit it.
 - Non-hidden files in `html/` and `assets/` are published. Keep internal documents and credentials out of those directories.
 
+## Receiving an HTML visualization
+
+When the user provides HTML for inclusion in Luma, complete this workflow:
+
+1. Inspect the supplied file and its resource references. Preserve the original file and work on a copy.
+2. Check for an outer Markdown code fence before previewing. Generated HTML is often saved with an opening line such as ` ```html ` or ` ``` ` and a matching closing ` ``` `. These lines are Markdown wrappers, not HTML, and appear as stray text in the browser. If the entire document is fenced, remove only the paired opening and closing wrapper lines. Do not globally remove backticks: JavaScript template literals and intentional page content must remain intact.
+3. Preview the cleaned copy locally before adding it to the repository. Check for leftover fence text, console errors, broken resources, clipping or blocked scrolling, and essential interactions. Check desktop and mobile layouts; verify relevant mathematical values and edge cases.
+4. Fix issues found in the working copy while preserving the visualization's intended behavior. Keep the interface in English. Do not redesign a supplied page unless requested.
+5. Add the verified page to `html/<descriptive-name>.html`, or use `html/<visualization>/index.html` for a multi-file page. Copy required resources and use relative paths. Preserve existing URLs when updating a page. Set a clear English title and, when useful, a short description.
+6. Run `node scripts/build.mjs` and verify that the homepage automatically discovers the page, its link opens the correct file, and its resources are included. Do not edit the catalog manually.
+7. For an authorized addition or publication, commit the relevant source changes, push to `main`, and check the GitHub Actions deployment and live page. Honor any request for review only, a draft, or local-only changes.
+8. Report the preview result, any corrections made, and the published page URL when available.
+
 ## Technical choices
 
 - Default to native HTML, CSS, and JavaScript, preferably self-contained HTML files.
